@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-                primarySwatch: Colors.blue,
+              primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-       return Scaffold(
+        return Scaffold(
       appBar: AppBar(
                title: Text(widget.title),
       ),
@@ -56,11 +56,47 @@ class SelectionButton extends StatelessWidget {
   }
 
   void _navigateAndDisplaySelection(BuildContext context) async {
-
-    final result = await Navigator.push(
+      final result = await Navigator.push(
       context,
-      // Create the SelectionScreen in the next step.
-      MaterialPageRoute(builder: (context) => const SelectionScreen()),
+           MaterialPageRoute(builder: (context) => const SelectionScreen()),
+    );
+  }
+}
+
+class SelectionScreen extends StatelessWidget {
+  const SelectionScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pick an option'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Pop here with "Yep"...
+                },
+                child: const Text('Yep!'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Pop here with "Nope"...
+                },
+                child: const Text('Nope.'),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
