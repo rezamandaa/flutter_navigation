@@ -7,7 +7,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -31,9 +31,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+    return Scaffold(
       appBar: AppBar(
-               title: Text(widget.title),
+        title: Text(widget.title),
       ),
       body: Center(
         child: SelectionButton(),
@@ -56,9 +56,9 @@ class SelectionButton extends StatelessWidget {
   }
 
   void _navigateAndDisplaySelection(BuildContext context) async {
-      final result = await Navigator.push(
+    final result = await Navigator.push(
       context,
-           MaterialPageRoute(builder: (context) => const SelectionScreen()),
+      MaterialPageRoute(builder: (context) => const SelectionScreen()),
     );
   }
 }
@@ -80,7 +80,7 @@ class SelectionScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Pop here with "Yep"...
+                  Navigator.pop(context, 'Yep!');
                 },
                 child: const Text('Yep!'),
               ),
@@ -89,7 +89,7 @@ class SelectionScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Pop here with "Nope"...
+                  Navigator.pop(context, 'Nope.');
                 },
                 child: const Text('Nope.'),
               ),
