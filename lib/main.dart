@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,132 +10,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        ExtractArgumentsScreen.routeName: (context) =>
-            const ExtractArgumentsScreen(),
-      },
-
-      onGenerateRoute: (settings) {
-        if (settings.name == PassArgumentsScreen.routeName) {
-
-          final args = settings.arguments as ScreenArguments;
-
-          return MaterialPageRoute(
-            builder: (context) {
-              return PassArgumentsScreen(
-                title: args.title,
-                message: args.message,
-              );
-            },
-          );
-        }
-        assert(false, 'Need to implement ${settings.name}');
-        return null;
-      },
-      title: 'Navigation with Arguments',
-      home: const HomeScreen(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+                primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  ExtractArgumentsScreen.routeName,
-                  arguments: ScreenArguments(
-                    'Extract Arguments Screen',
-                    'This message is extracted in the build method.',
-                  ),
-                );
-              },
-              child: const Text('Navigate to screen that extracts arguments'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  PassArgumentsScreen.routeName,
-                  arguments: ScreenArguments(
-                    'Accept Arguments Screen',
-                    'This message is extracted in the onGenerateRoute '
-                        'function.',
-                  ),
-                );
-              },
-              child: const Text('Navigate to a named that accepts arguments'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class ExtractArgumentsScreen extends StatelessWidget {
-  const ExtractArgumentsScreen({Key? key}) : super(key: key);
-
-  static const routeName = '/extractArguments';
-
-  @override
-  Widget build(BuildContext context) {
-
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-
-    return Scaffold(
-      appBar: AppBar( 
-        title: Text(args.title),
-      ),
-      body: Center(
-        child: Text(args.message),
-      ),
-    );
-  }
-}
-
-
-class PassArgumentsScreen extends StatelessWidget {
-  static const routeName = '/passArguments';
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
-  final String message;
-
-  const PassArgumentsScreen({
-    Key? key,
-    required this.title,
-    required this.message,
-  }) : super(key: key);
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+               title: Text(widget.title),
       ),
       body: Center(
-        child: Text(message),
+        child: SelectionButton(),
       ),
     );
   }
-}
-
-class ScreenArguments {
-  final String title;
-  final String message;
-
-  ScreenArguments(this.title, this.message);
 }
